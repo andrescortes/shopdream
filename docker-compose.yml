@@ -1,0 +1,38 @@
+services:
+#  app:
+#    container_name: shopdream
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    environment:
+#      - DB_HOST=db
+#      - DB_PORT=5432
+#      - DB_NAME=shop_db
+#      - DB_USER=postgres
+#      - DB_PASSWORD=secret
+#    ports:
+#      - "9000:9000"
+#    networks:
+#      - spring
+#    depends_on:
+#      - db
+  db:
+    image: postgres:16-alpine
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=shop_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - spring
+volumes:
+  pgdata:
+
+networks:
+  spring:
+    name: spring
+    driver: bridge
